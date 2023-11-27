@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'description',
+        'image',
+        'slug',
+        'likes'
+        // other attributes that you want to be mass assignable
+    ];
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');

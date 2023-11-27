@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -54,7 +55,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $comments = $post->comments;
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**

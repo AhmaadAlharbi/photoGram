@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -64,22 +65,38 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        // $this->authorize('update', $post);
+        return view('posts.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Post $post)
     {
-        //
+        // $this->authorize('update', $post);
+        $data = $request->validate([
+            'description' => 'required',
+            'image' => ['nullable', 'mimes:jpeg,jpg,png,gif']
+        ]);
+
+        if ($request->has('image')) {
+            $image = $request['image']->store('posts', 'public');
+            $data['image'] = $image;
+        }
+
+        $post->update($data);
+
+        return redirect('/p/' . $post->slug);
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
     {
-        //
+        // $this->authorize('delete', $post);
+
+        Storage::delete('public/' . $post->image);
+        $post->delete();
+        return redirect(url('/'));
     }
 }

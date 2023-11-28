@@ -13,6 +13,20 @@
                 <div class="grow">
                     <a href="/{{ $post->owner->username }}" class="font-bold">{{ $post->owner->username }}</a>
                 </div>
+                @if ($post->owner->id === auth()->id())
+                <a href="/p/{{$post->slug}}/edit"><i class='bx bx-message-square-edit text-xl'></i></a>
+                <i type='solid' name='trash-alt  text-xl'></i>
+                <form action="{{route('delete_post',$post)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button onclick="return confirm('Are You sure you want delet post?')">
+                        <i class='bx bx-message-square-x ltr:ml-2 rtl:mr-2 text-xl text-red-600'></i>
+                        {{-- <i type='solid' name='trash-alt  text-xl'></i> --}}
+                    </button>
+                </form>
+
+                @endif
+
             </div>
             {{--middle--}}
             <div class="grow overflow-y-auto">

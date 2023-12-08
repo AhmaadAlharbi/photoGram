@@ -4,8 +4,11 @@
         <a href="/{{$post->owner->username}}" class="font-bold">{{$post->owner->username}}</a>
     </div>
     <div class="card-body">
+
         <div class="max-h-[35rem] overflow-hidden">
-            <img class="h-auto w-full object-cover" src="/{{ $post->image }}">
+            {{-- <img class="h-auto w-full object-cover" src="/{{ $post->image }}" alt="post image"> --}}
+            <img class="h-auto w-full object-cover" src="{{ asset('storage/' . $post->image) }}" alt="post image">
+
         </div>
         <div class="p-3 flex flex-row">
             <a class="grow" href="/p/{{ $post->slug }}"><i

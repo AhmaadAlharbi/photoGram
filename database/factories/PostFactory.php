@@ -21,7 +21,7 @@ class PostFactory extends Factory
             'description' => fake()->sentence(),
             'slug' => fake()->regexify('[A-Za-z0-9]{10}'),
             'user_id' => User::factory(),
-            'image' => fake()->image(null, 360, 360, 'animals', true, true, 'cats', true)
+            'image' => $this->faker->image('public/storage/posts', 360, 360, 'animals', true, true, 'cats', true),
 
         ];
     }
